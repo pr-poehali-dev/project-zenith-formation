@@ -1,10 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import WebGLTextDistortion from '@/components/WebGLTextDistortion'
 import Icon from '@/components/ui/icon'
 
 const navItems = [
-  { label: 'Видео архив', icon: 'Play' },
-  { label: 'Документы', icon: 'FileText' },
-  { label: 'Заявки на закупку', icon: 'ShoppingCart' },
+  { label: 'Видео архив', icon: 'Play', route: '/video' },
+  { label: 'Документы', icon: 'FileText', route: null },
+  { label: 'Заявки на закупку', icon: 'ShoppingCart', route: null },
 ]
 
 const modules = [
@@ -13,22 +14,26 @@ const modules = [
     title: 'Видео архив',
     description: 'Корпоративная библиотека обучающих и рабочих видеоматериалов',
     tag: 'Медиа',
+    route: '/video',
   },
   {
     icon: 'FileText',
     title: 'Документы',
     description: 'Просмотр регламентов, инструкций и корпоративных документов',
     tag: 'База знаний',
+    route: null,
   },
   {
     icon: 'ShoppingCart',
     title: 'Заявки на закупку',
     description: 'Подача и отслеживание заявок на приобретение товаров и услуг',
     tag: 'Закупки',
+    route: null,
   },
 ]
 
 const Index = () => {
+  const navigate = useNavigate()
   return (
     <div className="relative w-full min-h-screen bg-black overflow-hidden">
       {/* WebGL Background */}
@@ -49,6 +54,7 @@ const Index = () => {
             {navItems.map((item) => (
               <button
                 key={item.label}
+                onClick={() => item.route && navigate(item.route)}
                 className="flex items-center gap-2 text-white/50 hover:text-white transition-colors font-mono text-xs tracking-wider uppercase"
               >
                 <Icon name={item.icon} size={14} />
@@ -86,6 +92,7 @@ const Index = () => {
           {modules.map((mod) => (
             <button
               key={mod.title}
+              onClick={() => mod.route && navigate(mod.route)}
               className="group flex flex-col gap-3 p-6 bg-black/60 hover:bg-white/5 transition-all duration-300 text-left border-r border-white/10 last:border-r-0"
             >
               <div className="flex items-center justify-between">
